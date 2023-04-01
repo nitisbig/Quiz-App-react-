@@ -16,50 +16,59 @@ const Timer = ({time})=>{
     )
 }
 
-const Question = ({passIndex}) => {
+const Question = ({passIndex, passIncorrectState}) => {
     const [quest, setQuest] = useState({question: 'What is capital city of Japan?', options:['Delhi', 'Kathmandu', 'New York', 'Tokyo'], correctIndex: 3})
     const [index, setIndex] = useState(0)
-    
-
+    const [incorrect, setIncorrect] = useState(true)
+    const [isDisabled, setIsDisabled] = useState(false)
     useEffect(()=>{
         setQuest(data[index])
     },[index])
+
+    
     function OptionOne(i){
         if(i===quest.correctIndex){
             setIndex(index+1)
-            passIndex(index)
+            passIndex(index+1)
 
         }
         else{
-            alert('wrong answer')
+            setIsDisabled(true)
+            passIncorrectState(incorrect)
         }
     }
     function OptionTwo(i) {
         if(i===quest.correctIndex){
             setIndex(index+1)
-            passIndex(index)
+            passIndex(index+1)
 
         }
         else{
-            alert('wrong answer')
+            
+            setIsDisabled(true)
+            passIncorrectState(incorrect)
         }
     }
     function OptionThree(i) {
       if(i===quest.correctIndex){
         setIndex(index+1)
-        passIndex(index)
+        passIndex(index+1)
       }
       else{
-        alert('wrong answer')
+        
+        setIsDisabled(true)
+        passIncorrectState(incorrect)
       }
     }
     function OptionFour(i) {
       if(i===quest.correctIndex){
         setIndex(index+1)
-        passIndex(index)
+        passIndex(index+1)
       }
       else{
-        alert('wrong answer')
+        
+        setIsDisabled(true)
+        passIncorrectState(incorrect)
       }
     }
   return (
@@ -68,10 +77,10 @@ const Question = ({passIndex}) => {
             <h1 className='font-normol text-white text-center'>{quest.question}</h1>
         </div>
         <div className='mt-2 grid grid-cols-2 gap-2'>
-            <div onClick={()=>OptionOne(0)}><Option option={quest.options[0]} /> </div>
-            <div onClick={()=>OptionTwo(1)}><Option option={quest.options[1]} /> </div>
-            <div onClick={()=>OptionThree(2)}><Option option={quest.options[2]} /> </div>
-            <div onClick={()=>OptionFour(3)}><Option option={quest.options[3]} /> </div>
+            <div onClick={isDisabled?null:()=>OptionOne(0)}><Option option={quest.options[0]} /> </div>
+            <div onClick={isDisabled?null:()=>OptionTwo(1)}><Option option={quest.options[1]} /> </div>
+            <div onClick={isDisabled?null:()=>OptionThree(2)}><Option option={quest.options[2]} /> </div>
+            <div onClick={isDisabled?null:()=>OptionFour(3)}><Option option={quest.options[3]} /> </div>
         </div>
         <div className='absolute -top-9 -z-10'>
             <Timer time={33} />
